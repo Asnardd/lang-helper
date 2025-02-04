@@ -4,7 +4,9 @@
     "keywords": [
         "Asnardd",
         "laravel",
-        "lang-helper"
+        "lang-helper",
+        "translations",
+        "artisan"
     ],
     "homepage": "https://github.com/asnardd/lang-helper",
     "license": "MIT",
