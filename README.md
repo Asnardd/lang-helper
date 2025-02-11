@@ -24,6 +24,7 @@ This is the contents of the published config file:
 ```php
 return [
     'lang-folder' => 'lang',
+    'new-file-content' => "<?php\n\nreturn[\n\t\n];"
 ];
 ```
 
