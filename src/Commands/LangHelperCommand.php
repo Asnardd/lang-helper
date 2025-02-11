@@ -82,8 +82,8 @@ class LangHelperCommand extends Command
      */
     protected function createLangDirectory(string $langFolder, string $language): void
     {
-        if (!File::exists("$langFolder/$language")) {
-            File::makeDirectory("$langFolder/$language");
+        if (!File::exists(base_path("$langFolder/$language"))) {
+            File::makeDirectory(base_path("$langFolder/$language"));
         }
     }
 
@@ -97,7 +97,7 @@ class LangHelperCommand extends Command
      */
     protected function createTranslationFile(string $langFolder, string $language, string $fileName): void
     {
-        $filePath = "$langFolder/$language/$fileName.php";
+        $filePath = base_path("$langFolder/$language/$fileName.php");
         if (File::exists($filePath) && !$this->option('overwrite')) {
             $this->fail("The translation file $filePath already exists! If you wish to overwrite it, please use the --overwrite option.");
         }

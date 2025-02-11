@@ -31,7 +31,7 @@ return [
 ## Usage
 
 ```bash
-php artisan make:lang {name?} {lang?}
+php artisan make:lang {name?} {lang?} {--O|overwrite}
 ```
 
 ## Changelog
@@ -40,7 +40,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Credits
 
-- [Asnard](https://github.com/Asnard)
+- [Asnardd](https://github.com/Asnardd)
 
 ## License
 
