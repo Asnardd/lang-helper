@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2025-02-12
+### Changed
+- Modified tests to ensure directory creation.
+- Updated dependencies.
+
+### Added
+- Implemented GitHub Actions to automatically run tests after a push.
+
 ## [2.0.0] - 2025-02-11
 
 ### Added
