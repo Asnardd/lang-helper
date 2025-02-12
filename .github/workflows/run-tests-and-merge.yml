@@ -23,33 +23,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --no-interaction --no-ansi
 
       - name: Run tests
-        run: vendor/bin/pest
-
-  merge:
-    needs: laravel-tests
-    runs-on: ubuntu-latest
-    if: success()
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Create and merge pull request
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const branch = context.ref.replace('refs/heads/', '');
-            const { data: pullRequest } = await github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `Merge ${branch} into master`,
-              head: branch,
-              base: 'master'
-            });
-
-            await github.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pullRequest.number,
-              merge_method: 'merge'
-            });
+        run: composer test
