@@ -29,10 +29,10 @@ class LangHelperCommandTest extends TestCase
     #[Test]
     public function it_creates_a_new_translation_file_and_directory(): void
     {
-        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/en/users.php');
+        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/fr/users.php');
 
-        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'en'])
-            ->expectsOutput('Translation file created successfully at ' . config('lang-helper.lang-folder', 'lang') . '/en/users.php')
+        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'fr'])
+            ->expectsOutput('Translation file created successfully at ' . config('lang-helper.lang-folder', 'lang') . '/fr/users.php')
             ->assertExitCode(0);
 
         $this->assertTrue(File::exists($filePath));
@@ -43,10 +43,13 @@ class LangHelperCommandTest extends TestCase
     #[Test]
     public function it_does_not_overwrite_existing_file_without_option(): void
     {
-        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/en/users.php');
+        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/fr/users.php');
+        if (!File::exists(base_path(config('lang-helper.lang-folder', 'lang') . '/fr'))){
+            File::makeDirectory(base_path(config('lang-helper.lang-folder', 'lang') . '/fr',0755,true));
+        }
         File::put($filePath, "<?php\n\nreturn[\n\t\n];");
 
-        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'en'])
+        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'fr'])
             ->expectsOutput('The translation file ' . $filePath . ' already exists! If you wish to overwrite it, please use the --overwrite option.')
             ->assertExitCode(1);
 
@@ -56,11 +59,14 @@ class LangHelperCommandTest extends TestCase
     #[Test]
     public function it_overwrites_existing_file_with_option(): void
     {
-        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/en/users.php');
+        $filePath = base_path(config('lang-helper.lang-folder', 'lang') . '/fr/users.php');
+        if (!File::exists(base_path(config('lang-helper.lang-folder', 'lang') . '/fr'))){
+            File::makeDirectory(base_path(config('lang-helper.lang-folder', 'lang') . '/fr',0755,true));
+        }
         File::put($filePath, "<?php\n\nreturn[\n\t\n];");
 
-        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'en', '--overwrite' => true])
-            ->expectsOutput('Translation file created successfully at ' . config('lang-helper.lang-folder', 'lang') . '/en/users.php')
+        $this->artisan('make:lang', ['name' => 'users', 'lang' => 'fr', '--overwrite' => true])
+            ->expectsOutput('Translation file created successfully at ' . config('lang-helper.lang-folder', 'lang') . '/fr/users.php')
             ->assertExitCode(0);
 
         File::delete($filePath);

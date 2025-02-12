@@ -56,6 +56,9 @@ class LangHelperCommand extends Command
         $lang = $this->argument('lang') ?? text('Which language is the translation for ?', required: true, hint: 'en');
 
         try {
+            $this->createLaravelLangDirectory(
+                name: $langFolder,
+            );
             $this->createLangDirectory(
                 langFolder: $langFolder,
                 language: $lang,
@@ -75,6 +78,18 @@ class LangHelperCommand extends Command
     }
 
     /**
+     * Create the Laravel lang directory if it doesn't already exist.
+     * @param string $name
+     * @return void
+     */
+    protected function createLaravelLangDirectory(string $name): void
+    {
+        if (!File::exists(base_path($name))) {
+            File::makeDirectory(base_path($name),0755,true);
+        }
+    }
+
+    /**
      * Create the language directory if it doesn't already exist.
      * @param string $langFolder The lang folder at the root of your project
      * @param string $language The language for which this translation will be, usually in ISO 639-1 format
@@ -83,7 +98,7 @@ class LangHelperCommand extends Command
     protected function createLangDirectory(string $langFolder, string $language): void
     {
         if (!File::exists(base_path("$langFolder/$language"))) {
-            File::makeDirectory(base_path("$langFolder/$language"));
+            File::makeDirectory(base_path("$langFolder/$language"),0755, true);
         }
     }
 
