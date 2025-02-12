@@ -38,7 +38,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const github = require('@actions/github');
             const branch = context.ref.replace('refs/heads/', '');
             const { data: pullRequest } = await github.pulls.create({
               owner: context.repo.owner,
