@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2025-03-04
+### Changed
+- Rewrote tests to use Pest functional style.
+- Removed unused dev dependencies left behind by spatie/package-skeleton-laravel: `laravel/pint`, `nunomaduro/collision`, `pestphp/pest-plugin-arch`, `pestphp/pest-plugin-laravel`, `larastan/larastan`, `pestphp/pest-plugin-arch`, `pestphp/pest-plugin-laravel`, `phpstan/extension-installer`, `phpstan/phpstan-deprecation-rules`, `phpstan/phpstan-phpunit`, and `spatie/laravel-ray`.
+
 ## [2.2.0] - 2025-02-28
 ### Changed
 - Removed illuminate/contracts as a dependencies since it caused some incompatibilities (this package is only installed in a laravel that possess it anyway)

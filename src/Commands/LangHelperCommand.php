@@ -3,14 +3,11 @@
 namespace Asnardd\LangHelper\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Throwable;
+
 use function Laravel\Prompts\text;
 
-/**
- *
- */
 class LangHelperCommand extends Command
 {
     /**
@@ -28,24 +25,23 @@ class LangHelperCommand extends Command
 
     /**
      * Return the lang folder at the root of your project, use by default 'lang' but can be changed in the config.
-     * @return string
      */
     protected function getLangFolderName(): string
     {
-        return config('lang-helper.lang-folder','lang');
+        return config('lang-helper.lang-folder', 'lang');
     }
 
     /**
      * Return the content for the new translation file, can be changed in the config.
-     * @return string
      */
     protected function getNewFileContent(): string
     {
-        return config('lang-helper.new-file-content',"<?php\n\nreturn[\n\t\n];");
+        return config('lang-helper.new-file-content', "<?php\n\nreturn[\n\t\n];");
     }
 
     /**
      * Execute the console command.
+     *
      * @return int Return an exit code. (0 for success, 1 for fail)
      */
     public function handle(): int
@@ -69,9 +65,9 @@ class LangHelperCommand extends Command
                 fileName: $name,
             );
             $this->info("Translation file created successfully at $langFolder/$lang/$name.php");
+
             return 0;
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
             $this->fail('Something went wrong...');
         }
@@ -79,45 +75,42 @@ class LangHelperCommand extends Command
 
     /**
      * Create the Laravel lang directory if it doesn't already exist.
-     * @param string $name
-     * @return void
      */
     protected function createLaravelLangDirectory(string $name): void
     {
-        if (!File::exists(base_path($name))) {
-            File::makeDirectory(base_path($name),0755,true);
+        if (! File::exists(base_path($name))) {
+            File::makeDirectory(base_path($name), 0755, true);
         }
     }
 
     /**
      * Create the language directory if it doesn't already exist.
-     * @param string $langFolder The lang folder at the root of your project
-     * @param string $language The language for which this translation will be, usually in ISO 639-1 format
-     * @return void
+     *
+     * @param  string  $langFolder  The lang folder at the root of your project
+     * @param  string  $language  The language for which this translation will be, usually in ISO 639-1 format
      */
     protected function createLangDirectory(string $langFolder, string $language): void
     {
-        if (!File::exists(base_path("$langFolder/$language"))) {
-            File::makeDirectory(base_path("$langFolder/$language"),0755, true);
+        if (! File::exists(base_path("$langFolder/$language"))) {
+            File::makeDirectory(base_path("$langFolder/$language"), 0755, true);
         }
     }
 
     /**
      * Create the new translation file if it doesn't already exist or if the overwrite option is true.
-     * @param string $langFolder The lang folder at the root of your project
-     * @param string $language The language for which this translation will be, usually in ISO 639-1 format
-     * @param string $fileName The name of the new translation file
-     * @return void
+     *
+     * @param  string  $langFolder  The lang folder at the root of your project
+     * @param  string  $language  The language for which this translation will be, usually in ISO 639-1 format
+     * @param  string  $fileName  The name of the new translation file
+     *
      * @throws Throwable
      */
     protected function createTranslationFile(string $langFolder, string $language, string $fileName): void
     {
         $filePath = base_path("$langFolder/$language/$fileName.php");
-        if (File::exists($filePath) && !$this->option('overwrite')) {
+        if (File::exists($filePath) && ! $this->option('overwrite')) {
             $this->fail("The translation file $filePath already exists! If you wish to overwrite it, please use the --overwrite option.");
         }
         File::put($filePath, $this->getNewFileContent());
     }
 }
-
-

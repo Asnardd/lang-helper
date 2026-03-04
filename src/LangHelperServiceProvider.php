@@ -2,9 +2,9 @@
 
 namespace Asnardd\LangHelper;
 
+use Asnardd\LangHelper\Commands\LangHelperCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Asnardd\LangHelper\Commands\LangHelperCommand;
 
 class LangHelperServiceProvider extends PackageServiceProvider
 {
